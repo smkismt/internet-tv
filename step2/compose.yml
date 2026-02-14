@@ -1,0 +1,33 @@
+services:
+  app:
+    build: .
+    environment:
+      - LANG=C.UTF-8
+      - TZ=Asia/Tokyo
+      - BUNDLE_PATH=/bundle
+    volumes:
+      - type: bind
+        source: ./
+        target: /usr/src/app
+      - bundle:/bundle
+    tty: true
+    stdin_open: true
+
+  db:
+    image: mysql:8.4.8
+    environment:
+      - MYSQL_ROOT_PASSWORD=root_password
+      - LANG=C.UTF-8
+      - TZ=Asia/Tokyo
+    volumes:
+      - type: volume
+        source: db-data
+        target: /var/lib/mysql
+      # - type: bind
+      #   source: ./test_db
+      #   target: /tmp/test_db
+    ports:
+      - "3306:3306"
+volumes:
+  bundle:
+  db-data:
