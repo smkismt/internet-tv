@@ -1,0 +1,79 @@
+@startuml
+hide circle
+skinparam linetype ortho
+
+entity "チャンネル" as channels {
+  *channel_id : bigint(20) <<PK>>
+  --
+  channel_name : varchar(255)
+}
+
+entity "番組枠" as program_slots {
+  *program_slot_id : bigint(20) <<PK>>
+  --
+  start_at : datetime
+  end_at : datetime
+  channel_id : bigint(20) <<FK>>
+}
+
+entity "番組" as programs {
+  *program_id : bigint(20) <<PK>>
+  --
+  title : varchar(255)
+  program_details : text
+}
+
+entity "シーズン" as seasons {
+  *season_id : bigint(20) <<PK>>
+  --
+  season : int
+  program_id : bigint(20) <<FK>>
+}
+
+entity "エピソード" as episodes {
+  *episode_id : bigint(20) <<PK>>
+  --
+  episode_count : int
+  title : varchar(255)
+  episode_details : text
+  video_duration : time
+  release_date : date
+  season_id : bigint(20) <<FK>>
+}
+
+entity "番組枠_エピソード" as program_slot_episodes {
+  *program_slot_episode_id : bigint(20) <<PK>>
+  --
+  broadcast_start_time : datetime
+  view_count : int
+  program_slot_id : bigint(20) <<FK>>
+  episode_id : bigint(20) <<FK>>
+}
+
+entity "ジャンル" as genres {
+  *genre_id : bigint(20) <<PK>>
+  --
+  genre_name : varchar(255)
+}
+
+entity "番組_ジャンル" as program_genres {
+  *program_genre_id : bigint(20) <<PK>>
+  --
+  program_id : bigint(20) <<FK>>
+  genre_id : bigint(20) <<FK>>
+}
+
+' ===== relations =====
+channels ||--|{ program_slots
+
+programs ||--|{ seasons
+seasons  ||--|{ episodes
+
+program_slot_episodes }|--|| program_slots
+program_slot_episodes }|--|| episodes
+
+programs ||--|{ program_genres
+genres   ||--|{ program_genres
+
+@enduml
+
