@@ -7,7 +7,18 @@
 ## ディレクトリ構成
 
 ```internet-tv
-
+├── README.md
+├── step1
+│   ├── create-table.md
+│   ├── flow.md
+│   ├── internet_tv_erb.puml
+│   └── internet_tv.svg
+├── step2
+│   ├── compose.yml
+│   ├── create-tables-and-insert-data.md
+│   └── Dockerfile
+└── step3
+    └── data-sql-queries.md
 ```
 
 ## ステップ概要
