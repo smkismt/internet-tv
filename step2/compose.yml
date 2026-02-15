@@ -23,9 +23,6 @@ services:
       - type: volume
         source: db-data
         target: /var/lib/mysql
-      # - type: bind
-      #   source: ./test_db
-      #   target: /tmp/test_db
     ports:
       - "3306:3306"
 volumes:
